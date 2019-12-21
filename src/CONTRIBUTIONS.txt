@@ -1,0 +1,3 @@
+some of files to be committed are taken from open source repositeries 
+1) -> https://github.com/rkdr055/BOJ
+2) -> https://github.com/pnikic/Hacking-uva
