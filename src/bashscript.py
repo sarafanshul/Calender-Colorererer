@@ -62,7 +62,7 @@ def cleanup():
 def main():
 	cmmts = 0
 	base_scr = os.getcwd().replace('\\','//') + '//'
-	floder = 'main_folder'
+	floder = 'main_dir'
 	create(floder)
 	base = cd_in(base_scr ,floder)
 	for Y in range(2019 ,2020):
@@ -73,14 +73,13 @@ def main():
 			create(M)
 			base_M = cd_in(base_Y ,str(M))
 
-			for D in range(1 ,30):
-				# if randint(1,1000)%3 == randint(1,3):# for random day commits
+			for D in range(1 ,30): 
+				# for random day commits
 				if randint(1,5)%4 >= 1: # more chances:
 					create(D)
 					base_D = cd_in(base_M ,str(D))
 
 					for H in range(0,8):
-						# if randint(1,1000) % 5 == randint(1,5):
 						if randint(1,5) % 5 >= 2:
 							cmmts += 1
 							filename = echo(base_scr ,base_D)
@@ -96,6 +95,7 @@ def main():
 	cd_out(base_scr)
 	cleanup()
 	print(f'\n\n\nTotal commits -> {cmmts}')
+
 
 if __name__ == '__main__':
 	s = time()

@@ -16,10 +16,17 @@ import os
 import subprocess
 import json
 from shutil import copy
+import json_dump
 
 def main_echo(base ,dir_loc ,count):
 	# base_src = os.getcwd().replace('\\' ,'//')+'//'
 	copy_source = base + 'source//'
+
+	# check if file is present or not
+	dr_chk = base
+	# os.path.exists(os.getcwd().replace('\\' ,'//')+'//'+'json_dump_src.json')
+	if not os.path.exists(dr_chk+'json_dump_src.json//'):
+		json_dump.main_call(copy_source)
 
 	with open(base+'json_dump_src.json') as jsn:
 		data = json.load(jsn)
@@ -37,3 +44,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
+	exit()
