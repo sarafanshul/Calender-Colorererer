@@ -10,6 +10,7 @@ from mk_copy import main_echo
 import json
 from shutil import copy
 from colorama import Fore, Back, init
+from commit_Random import commit_Str
 
 # Set-ExecutionPolicy -ExecutionPolicy Unrestricted
 # p = subprocess.Popen(['powershell.exe', command], stdout=sys.stdout)
@@ -36,20 +37,22 @@ def cd_out(par_base:str) -> 'Explicit Return':
 	os.chdir(par_base)
 
 
-def ps_script(Y:int ,M:int ,D:int ,H:int ,file:str ,base_cur:str) -> 'Explicit Return':
+def ps_script(Y:int ,M:int ,D:int ,H:int ,file:str ,base_cur:str ,commit_string:str) -> 'Explicit Return':
 	filename = file
 	file = base_cur + file
 	proc = subprocess.Popen([r'C:\WINDOWS\system32\WindowsPowerShell\v1.0\powershell.exe',
                             '-ExecutionPolicy',
                             'Bypass',
-                            f'./script_cmt.ps1 {Y} {M} {D} {H} {file} {filename}'], 
+                            f'./script_cmt.ps1 {Y} {M} {D} {H} {file} {filename} "{commit_string}"'], 
 							stdout=sys.stdout)
 	proc.wait()
 
 
-def call_script(base_scr:str ,Y:int ,M:int ,D:int ,H:int ,file:str ,base_cur:str) _. 'Explicit Return:
+def call_script(base_scr:str ,Y:int ,M:int ,D:int ,H:int ,file:str ,base_cur:str) -> 'Explicit Return':
+	global count_c
 	os.chdir(base_scr)
-	ps_script(Y ,M ,D ,H ,file ,base_cur) #searching on main
+	commit_string = commit_Str(base_scr , count_c)
+	ps_script(Y ,M ,D ,H ,file ,base_cur ,commit_string) #searching on main
 	os.chdir(base_cur)
 
 
