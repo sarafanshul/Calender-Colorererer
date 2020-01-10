@@ -24,7 +24,11 @@ def echo(base_scr:str ,base_D:str) -> str:
 	return filename
 
 
-def create(arg:int) -> 'Explicit Return':
+def create(base:str ,arg:int) -> 'Explicit Return':
+	# check for existing folder
+	# os.path.exists()
+	if os.path.exists(base + str(arg)):
+		return
 	create_here = subprocess.run(['mkdir' ,str(arg)] ,shell = True)
 
 
@@ -66,23 +70,23 @@ def cleanup() -> 'Explicit Return':
 def main():
 	cmmts = 0
 	base_scr = os.getcwd().replace('\\','//') + '//'
-	floder = 'main_dir'
-	create(floder)
+	folder = 'main_dir'
+	create(base_scr, floder) # base + folder for checking
 	base = cd_in(base_scr ,floder)
 	# ste Y,M,D ranges correspondingly
 
 	for Y in range(2019 ,2020):
-		create(Y)
+		create(base ,Y)
 		base_Y = cd_in(base ,str(Y))
 
 		for M in range(1 ,13):
-			create(M)
+			create(base_Y ,M)
 			base_M = cd_in(base_Y ,str(M))
 
 			for D in range(1 ,30): 
 				# for random day commits
 				if randint(1,5)%4 >= 1: # more chances:
-					create(D)
+					create(base_M ,D)
 					base_D = cd_in(base_M ,str(D))
 
 					for H in range(0,8):
