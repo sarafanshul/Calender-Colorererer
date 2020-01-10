@@ -3,7 +3,7 @@ import time
 import json
 
 def main_call(dr):
-	if not os.path.exists('dr'):
+	if not os.path.exists(dr):
 		print('\n\n\n\n')
 		print('source folder not found ')
 		print('extract the source.rar file ')
