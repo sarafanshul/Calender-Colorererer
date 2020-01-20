@@ -10,7 +10,7 @@ def commit_Str(base ,count):
 	
 
 def main():
-	commit_Str(3)
+	commit_Str('' ,3)
 
 if __name__ == '__main__':
 	main()
