@@ -1,11 +1,12 @@
 0) -> check for files
-	=> source* 
+	=> ./source.rar* 
 	=> bashscript.py*
 	=> commit_random.py
 	=> json_dump.py
 	=> mk_copy.py
 	=> scrip_clean.ps1
 	=> script_cmt.ps1
+	=> commit_extra.txt
 
 1) -> Create a json Dump by [json_dump.py]()
 
