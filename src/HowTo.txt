@@ -1,5 +1,9 @@
-0) -> check for files
-	=> ./source.rar* 
+-1  ) git clone "source"
+-1.1) run cprm.ps1 "codes" for extracting of do it self
+
+0   ) -> check for files
+	=> ./source.rar*
+		if (.rar) extract; 
 	=> bashscript.py*
 	=> commit_random.py
 	=> json_dump.py
@@ -8,6 +12,6 @@
 	=> script_cmt.ps1
 	=> commit_extra.txt
 
-1) -> Create a json Dump by [json_dump.py]()
+1  ) -> Create a json Dump by [json_dump.py]()
 
-2) -> run bashscript.py
+2  ) -> run bashscript.py

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+	#!/usr/bin/env bash
 import subprocess
 import sys
 # working committing->pushing script
@@ -16,12 +16,15 @@ from commit_Random import commit_Str
 # p = subprocess.Popen(['powershell.exe', command], stdout=sys.stdout)
 
 # for retriving commit count
-local = False
+local = True
+count_c = 0
 if local == True:
-	with open count.json as count_file:
-		count_c = json.load(count_file)[-1]
-else:
-	count_c = 0
+	try:
+		with open ("count.json" ,"r") as count_file:
+			count_c = int(json.load(count_file))
+			# print(count_c)
+	except Exception as e:
+		count = 0
 
 
 # for saving commit count
@@ -43,7 +46,7 @@ def create(base:str ,arg:int) -> 'Explicit Return':
 	# check for existing folder
 	# os.path.exists()
 	if os.path.exists(base + str(arg)):
-		return
+		return 
 	create_here = subprocess.run(['mkdir' ,str(arg)] ,shell = True)
 
 
@@ -73,7 +76,9 @@ def ps_script(Y:int ,M:int ,D:int ,H:int ,file:str ,base_cur:str ,commit_string:
 # called by main , this sets the path correct and calls ps_script()
 def call_script(base_scr:str ,Y:int ,M:int ,D:int ,H:int ,file:str ,base_cur:str) -> 'Explicit Return':
 	global count_c
+	# print(os.getcwd().replace('\\','//') + '//')
 	os.chdir(base_scr) # problem
+	# print(os.getcwd().replace('\\','//') + '//')
 	commit_string = commit_Str(base_scr , count_c)
 	ps_script(Y ,M ,D ,H ,file ,base_cur ,commit_string) #searching on main
 	os.chdir(base_cur)
@@ -89,36 +94,36 @@ def cleanup() -> 'Explicit Return':
 
 # you know it
 def main():
+	global count_c
 	try:
-		cmmts = count_c
 		base_scr = os.getcwd().replace('\\','//') + '//'
 		folder = 'main_dir'
 		create(base_scr, folder) # base + folder for checking
 		base = cd_in(base_scr ,folder)
 		# ste Y,M,D ranges correspondingly
-		year_start , year_end = map(int , input('>>> Input Year [start , end] * {with comma}\n').split(','))
+		# year_start , year_end = map(int , input('>>> Input Year [start , end] * {with comma}\n').split(','))
 		# for Y in range(2020 ,2021):
-		for Y in range(year_start ,year_end):
+		for Y in range(2020 ,2021):
 			create(base ,Y)
 			base_Y = cd_in(base ,str(Y))
 
-			for M in range(1 ,13):
+			for M in range(6 ,7):
 				create(base_Y ,M)
 				base_M = cd_in(base_Y ,str(M))
 
-				for D in range(1 ,30): 
+				for D in range(1 ,31): 
 					# for random day commits
-					if randint(1,6)%4 >= 1: # more chances:
+					if randint(1,5)%4 >= 1: # more chances:
 						create(base_M ,D)
 						base_D = cd_in(base_M ,str(D))
 
 						for H in range(0,8):
 
 							if randint(1,7) % 5 >= 2:
-								cmmts += 1
+								count_c += 1
 								filename = echo(base_scr ,base_D)
 								call_script(base_scr,Y,M,D,H,filename ,base_D) # base_scr -> base
-								# print(commit_Str(base_scr , count_c))
+								print(commit_Str(base_scr , count_c))
 
 							else: 
 								pass
@@ -132,9 +137,10 @@ def main():
 		# cleanup() # off turn on accordingly
 	except Exception as err:
 		print(err)
+		# return
 	finally:
-		if local :save_commits(cmmts)
-		print(Fore.WHITE ,Back.GREEN +f'\n\n\nTotal commits -> {cmmts}')
+		if local :save_commits(count_c)
+		print(Fore.WHITE ,Back.GREEN +f'\n\n\nTotal commits -> {count_c}')
 	
 
 if __name__ == '__main__':
@@ -143,5 +149,4 @@ if __name__ == '__main__':
 	main()
 	print(Fore.WHITE ,Back.GREEN + f'time taken -> {time()-s}')
 	print(Style.RESET_ALL)
-	if local :save_commits(cmmts)
 	exit()
